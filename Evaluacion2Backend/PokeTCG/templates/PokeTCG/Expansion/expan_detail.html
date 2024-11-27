@@ -1,0 +1,42 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center">Detalles de la Expansión</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Información de la Expansión</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">ID de la Expansión:</th>
+                        <td>{{ expansion.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nombre:</th>
+                        <td>{{ expansion.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fecha de Lanzamiento:</th>
+                        <td>{{ expansion.release_date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'expan_edit' pk=expansion.id %}" class="btn btn-warning">Editar Expansión</a>
+        <form method="post" action="{% url 'expan_delete' pk=expansion.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar Expansión</button>
+        </form>
+        <a href="{% url 'expan_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>
+
+{% endblock %}

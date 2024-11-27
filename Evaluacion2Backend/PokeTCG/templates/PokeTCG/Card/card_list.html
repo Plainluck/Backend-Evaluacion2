@@ -1,0 +1,51 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Listado de Cartas</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'card_add' %}" class="btn btn-primary">Añadir nueva carta</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Pokémon</th>
+                        <th scope="col">Elemento</th>
+                        <th scope="col">Puntos de Salud</th>
+                        <th scope="col">Expansión</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for card in cards %}
+                    <tr>
+                        <td>{{ card.pokemon }}</td>
+                        <td>{{ card.element }}</td>
+                        <td>{{ card.HP }}</td>
+                        <td>{{ card.expansion }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'card_detail' pk=card.id %}" class="btn btn-info btn-sm me-2">Detalles</a>
+                            <a href="{% url 'card_edit' pk=card.id %}" class="btn btn-warning btn-sm me-2">Editar</a>
+                            <form method="post" action="{% url 'card_delete' pk=card.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">Todavía no tienes cartas agregadas (-_- ;)</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

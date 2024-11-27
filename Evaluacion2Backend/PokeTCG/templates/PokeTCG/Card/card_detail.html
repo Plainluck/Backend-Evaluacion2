@@ -1,0 +1,50 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center">Detalles de la Carta</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Información de la Carta</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Id de la carta:</th>
+                        <td>{{ card.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pokémon:</th>
+                        <td>{{ card.pokemon }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Puntos de salud:</th>
+                        <td>{{ card.HP }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Elemento:</th>
+                        <td>{{ card.element }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Expansión:</th>
+                        <td>{{ card.expansion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'card_edit' pk=card.id %}" class="btn btn-warning">Editar Carta</a>
+        <form method="post" action="{% url 'card_delete' pk=card.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar Carta</button>
+        </form>
+        <a href="{% url 'card_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>
+
+{% endblock %}

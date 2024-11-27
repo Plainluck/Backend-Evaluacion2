@@ -1,0 +1,47 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Listado de Expansiones</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'expan_add' %}" class="btn btn-primary">Añadir nueva expansión</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de Lanzamiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expansion in expansions %}
+                    <tr>
+                        <td>{{ expansion.name }}</td>
+                        <td>{{ expansion.release_date }}</td>
+                        <td>
+                            <a href="{% url 'expan_detail' pk=expansion.id %}" class="btn btn-info btn-sm me-2">Detalles</a>
+                            <a href="{% url 'expan_edit' pk=expansion.id %}" class="btn btn-warning btn-sm me-2">Editar</a>
+                            <form method="post" action="{% url 'expan_delete' pk=expansion.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-3">No hay expansiones añadidas aún.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center">Detalles del Pokémon</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Información del Pokémon</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">ID del Pokémon:</th>
+                        <td>{{ pokemon.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nombre:</th>
+                        <td>{{ pokemon.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Elemento:</th>
+                        <td>{{ pokemon.element }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Habilidad:</th>
+                        <td>{{ pokemon.skill }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'poke_edit' pk=pokemon.id %}" class="btn btn-warning">Editar Pokémon</a>
+        <form method="post" action="{% url 'poke_delete' pk=pokemon.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar Pokémon</button>
+        </form>
+        <a href="{% url 'poke_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>
+
+{% endblock %}

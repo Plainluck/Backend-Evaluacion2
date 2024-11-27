@@ -1,0 +1,46 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center">Detalles del Elemento</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Información del Elemento</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">ID del Elemento:</th>
+                        <td>{{ element.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nombre:</th>
+                        <td>{{ element.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Efectivo Contra:</th>
+                        <td>{{ element.effectiveness }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Débil Contra:</th>
+                        <td>{{ element.weakness }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'element_edit' pk=element.id %}" class="btn btn-warning">Editar Elemento</a>
+        <form method="post" action="{% url 'element_delete' pk=element.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar Elemento</button>
+        </form>
+        <a href="{% url 'element_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>
+
+{% endblock %}
